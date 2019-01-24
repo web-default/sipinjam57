@@ -14,22 +14,26 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
 
+    // melihat user
 	public function listuser()
 	{
 		// return view('users.list');
 		return 'list users page';
 	}
 
+    // page membuat user
 	public function createuser()
 	{
 		return view('admin.create-user');
 	}
+
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \App\User
      */
+    // membuat user
     protected function storeuser(Request $request)
     {
         $this->validate($request, [
@@ -89,5 +93,41 @@ class AdminController extends Controller
                 break;
         }
         return back()->with('msg', 'user berhasil dibuat!');
+    }
+
+    // edit profile admin
+    public function admin_edit_profile($id)
+    {
+        $user_admin = User::findOrFail($id);
+        $admin = Admin::where('user_id', $user_admin->id)->first();
+        // dd($admin);
+        return view('admin.edit-profile', compact('user_admin', 'admin'));
+    }
+
+    public function admin_update_profile(Request $request, $id)
+    {
+        $user_admin = User::findOrFail($id);
+        $admin = Admin::where('user_id', $user_admin->id)->first();
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' =>  ['required', 'digits_between:8,15'],
+            'address' => ['required', 'string', 'min:10'],
+        ]);
+        $admin->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'phone' => $request['phone'],
+            'address' => $request['address'],
+        ]);
+
+        $user_admin->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'phone' => $request['phone'],
+        ]);
+        
+        $msg = 'profile berhasil di perbaharui!';
+        return back()->with('msg', $msg);
     }
 }

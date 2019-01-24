@@ -2,13 +2,13 @@
 
 namespace App;
 
-// use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Mahasiswa extends Authenticatable
+class Mahasiswa extends Model
 {
 	protected $fillable = [
-        'user_id', 'name', 'id_number', 'email', 'phone', 'departmen', 'year', 'address', 
+        'user_id', 'name', 'id_number', 'email', 'phone', 'departmen', 'year', 'address',
     ];
 
     public function user()

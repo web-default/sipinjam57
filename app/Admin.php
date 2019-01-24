@@ -2,10 +2,10 @@
 
 namespace App;
 
-// use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Authenticatable
+class Admin extends Model
 {
     protected $fillable = [
         'user_id', 'name', 'id_number', 'email', 'phone', 'address', 

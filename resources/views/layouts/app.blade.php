@@ -87,9 +87,9 @@
       <!-- Sidebar -->
       @if (auth()->user()->isAdmin())
         @include('admin.sidebar')
-      @elseif (auth()->user() == "dosen")
+      @elseif (auth()->user()->role == "dosen")
         @include('dosen.sidebar')
-      @elseif (auth()->user() == "karyawan")
+      @elseif (auth()->user()->role == "karyawan")
         @include('karyawan.sidebar')
       @else
         @include('mahasiswa.sidebar')
